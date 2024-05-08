@@ -1,0 +1,128 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="./assets/images/logo.jpg" alt="EasyWheels Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/search" routerLinkActive="active" (click)="navigateToSearchPage()">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/booking" routerLinkActive="active" (click)="navigateTobookingpage()">Booking</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" routerLink="/cars" routerLinkActive="active">Cars</a>
+        </li>
+      </ul>
+      <form class="d-flex" *ngIf="loggedUserObj">
+        <span class="user-name" *ngIf="loggedUserObj">{{ loggedUserObj.name }}</span>
+        <span class="user-name" *ngIf="loggedUserObj">{{ loggedUserObj.userRole}}</span>
+        <button class="btn btn-success round-button" (click)="logout()" type="button">Logout</button>
+      </form>
+      <form class="d-flex" *ngIf="!loggedUserObj">
+        <button class="btn btn-outline-primary round-button mx-2" (click)="openLogin()" type="button">Login</button>
+        <button class="btn btn-success round-button" (click)="openRegister()" type="button">Register</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid pt-3">
+  <router-outlet></router-outlet>
+</div>
+
+
+<div class="modal" id="registerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Registration Form</h4>
+        <button type="button" class="btn-close" (click)="closeRegister()" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="registerObj.name" name="name" required>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="registerObj.emailId" name="email"
+                required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="mobile" class="form-label">Mobile Number</label>
+              <input type="tel" class="form-control" id="mobile" [(ngModel)]="registerObj.mobileNo" name="mobile"
+                required>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="registerObj.password"
+                name="password" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label">Are you a customer or an owner of a car?</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userRole" id="customerRadio"
+                [(ngModel)]="registerObj.userRole" value="Customer">
+              <label class="form-check-label" for="customerRadio">Customer</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userRole" id="ownerRadio"
+                [(ngModel)]="registerObj.userRole" value="Owner">
+              <label class="form-check-label" for="ownerRadio">Owner</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+        <button type="submit" class="btn btn-primary" (click)="onRegister()">Register</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Login Form</h4>
+        <button type="button" class="btn-close" (click)="closeLogin()" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="loginEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="loginEmail" [(ngModel)]="loginObj.emailId" name="loginEmail" required>
+        </div>
+        <div class="mb-3">
+          <label for="loginPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="loginPassword" [(ngModel)]="loginObj.password" name="loginPassword" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="onLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
