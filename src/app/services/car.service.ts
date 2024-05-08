@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class CarService {
 
-  apiEndPoint: string = 'http://localhost:4200/api/ZoomCar'; 
+  apiEndPoint: string = '/api/ZoomCar'; 
   constructor(private http: HttpClient) { }
 
   registerUser(obj: any) {
